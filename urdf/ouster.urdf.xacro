@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<!-- Revolute-Revolute Manipulator -->
+
+<!-- Ouster OS1 Lidar Sensor -->
 <robot name="os1" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 <xacro:macro name="os1_lidar" params="parent *origin name:=os1_lidar">
-
   <joint name="${parent}_to_ouster" type="fixed">
     <xacro:insert_block name="origin"/>
     <parent link="${parent}" />
@@ -16,30 +16,36 @@
         <!--cylinder radius="0.04350" length="0.07350" /-->
         <mesh filename="package://rooster_description/urdf/meshes/os1_mesh.dae" />
       </geometry>
-      <!--material name="Grey"-->
-      <!--color rgba="0.6 0.6 0.6 0.8"/-->
-      <!--/material-->
     </visual>
     <inertial>
-      <mass value="0.455" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0"
-      izz="1.0" />
+      <!-- CoM taken from CAD assuming constant density and mass 0.479 (best approximation available to real mass) -->
+      <origin xyz="-0.03775e-3 -2.161e-7 31.329e-3" rpy="0 0 0" />
+      <!-- mass taken from Ouster datasheet -->
+      <mass value="0.455" /> 
+      <!-- Inertia tensor from CAD assuming constant density and mass 0.479 (best approximation vailable to real mass) -->
+      <inertia ixx="3.545e-4" ixy="6.051e-10" ixz="-3.736e-7" iyy="3.554e-4" iyz="-2.919e-9" izz="3.627e-4" />
     </inertial>
+    <collision>
+      <origin xyz="0 0 0.03675"/>
+      <geometry>
+        <cylinder radius="0.04350" length="0.07350" />
+      </geometry>
+    </collision>
   </link>
   <joint name="ouster_sensor_to_lidar" type="fixed">
+    <!-- origin queried from device -->
     <origin xyz="0 0 0.03618" rpy="0 0 ${pi}" />
     <parent link="os1_sensor" />
     <child link="os1_lidar" />
   </joint>
   <link name="os1_lidar" />
   <joint name="ouster_sensor_to_imu" type="fixed">
+    <!-- origin queried from device -->
     <origin xyz="0.006253 -0.011775 0.007645" rpy="0 0 0" />
     <parent link="os1_sensor" />
     <child link="os1_imu" />
   </joint>
   <link name="os1_imu" />
-
-
 </xacro:macro>
 
 </robot>
