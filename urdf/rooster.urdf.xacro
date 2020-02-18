@@ -37,7 +37,7 @@
     <xacro:arg name="simulation" default="$(arg simulation)" />
   </os1_device>
   <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
-  <sensor_d435 name="realsense_d435" parent="realsense_parent">
+  <sensor_d435 parent="realsense_parent">
     <origin xyz="0 0 0" rpy="0 0 0" />
     <xacro:arg name="use_nominal_extrinsics" default="$(arg simulation)" />
   </sensor_d435>
