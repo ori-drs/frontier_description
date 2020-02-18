@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="os1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="os1_lidar" params="parent *origin name:=os1_lidar">
+
+  <joint name="${parent}_to_ouster" type="fixed">
+    <xacro:insert_block name="origin"/>
+    <parent link="${parent}" />
+    <child link="os1_sensor" />
+  </joint>
+  <link name="os1_sensor">
+    <visual>
+      <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}" />
+      <geometry>
+        <!--cylinder radius="0.04350" length="0.07350" /-->
+        <mesh filename="package://rooster_description/urdf/meshes/os1_mesh.dae" />
+      </geometry>
+      <!--material name="Grey"-->
+      <!--color rgba="0.6 0.6 0.6 0.8"/-->
+      <!--/material-->
+    </visual>
+    <inertial>
+      <mass value="0.455" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0"
+      izz="1.0" />
+    </inertial>
+  </link>
+  <joint name="ouster_sensor_to_lidar" type="fixed">
+    <origin xyz="0 0 0.03618" rpy="0 0 ${pi}" />
+    <parent link="os1_sensor" />
+    <child link="os1_lidar" />
+  </joint>
+  <link name="os1_lidar" />
+  <joint name="ouster_sensor_to_imu" type="fixed">
+    <origin xyz="0.006253 -0.011775 0.007645" rpy="0 0 0" />
+    <parent link="os1_sensor" />
+    <child link="os1_imu" />
+  </joint>
+  <link name="os1_imu" />
+
+
+</xacro:macro>
+
+</robot>
