@@ -13,6 +13,7 @@ Panels:
         - /OS1 Lidar Frame1
         - /OS1 IMU Frame1
         - /RealSense Parent Frame1
+        - /RealSense Infra1 Optical Frame1
       Splitter Ratio: 0.48801368474960327
     Tree Height: 1143
   - Class: rviz/Selection
@@ -73,6 +74,11 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        base_inertia:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         os1_imu:
           Alpha: 1
           Show Axes: false
@@ -186,6 +192,13 @@ Visualization Manager:
       Radius: 0.0010000000474974513
       Reference Frame: realsense_parent
       Value: true
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 0.10000000149011612
+      Name: RealSense Infra1 Optical Frame
+      Radius: 0.0010000000474974513
+      Reference Frame: realsense_d435_infra1_optical_frame
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -214,7 +227,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.6440784931182861
+      Distance: 0.33990079164505005
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -229,10 +242,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.07979746907949448
+      Pitch: 0.14979727566242218
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.6754071712493896
+      Yaw: 0.9304077625274658
     Saved: ~
 Window Geometry:
   Displays:

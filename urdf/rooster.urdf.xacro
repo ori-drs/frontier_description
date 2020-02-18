@@ -3,34 +3,49 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
   <xacro:include filename="$(find rooster_description)/urdf/ouster.urdf.xacro" />
+  <xacro:arg name="simulation" default="false" />
   <link name="base" />
-
-  <link name="realsense_parent" />
-
-  <!-- add OS1 Ouster Lidar sensor -->
-  <os1_lidar name="os1_lidar" parent="base">
+  <link name="base_inertia">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://rooster_description/urdf/meshes/rooster_mount_v1.dae" />
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- CoM computed from CAD assuming material is ABS (density 1.052e-6 kg/mm^3)-->
+      <origin xyz="-12.256e-3 -0.092e-3 -29.959e-3" rpy="0 0 0" />
+      <mass value="0.212" />
+      <inertia ixx="3.541e-4" ixy="5.656e-6" ixz="-6.046e-5"
+      iyy="5.340e-4" iyz="-7.84e-6" izz="3.672e-4" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://rooster_description/urdf/meshes/rooster_mount_v1.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="base_to_inertia" type="fixed">
+    <parent link="base" />
+    <child link="base_inertia" />
     <origin xyz="0 0 0" rpy="0 0 0" />
-  </os1_lidar>
-
+  </joint>
+  <!-- add OS1 Ouster Lidar sensor -->
+  <os1_device name="os1_sensor" parent="base">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <xacro:arg name="simulation" default="$(arg simulation)" />
+  </os1_device>
   <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
   <sensor_d435 name="realsense_d435" parent="realsense_parent">
     <origin xyz="0 0 0" rpy="0 0 0" />
-    <xacro:arg name="use_nominal_extrinsics" default="true" />
+    <xacro:arg name="use_nominal_extrinsics" default="$(arg simulation)" />
   </sensor_d435>
-
+  <link name="realsense_parent" />
   <joint name="base_to_realsense" type="fixed">
-    <origin xyz="0.15 0 -0.15" rpy="0 0 0" />
+    <origin xyz="43.7e-3 7.5e-3 -58.5e-3" rpy="0 0 0" />
     <parent link="base" />
     <child link="realsense_parent" />
   </joint>
-
-
-  <link name="basealt" />
-  <joint name="basealt_to_lidar" type="fixed" >
-	  <parent link="os1_sensor" />
-	  <child link="basealt"/>
-	  <origin xyz="-0.025 -0.045 -0.054" rpy="0 0 ${pi}" />
-  </joint>
-
 </robot>
 
