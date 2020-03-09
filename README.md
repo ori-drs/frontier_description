@@ -19,3 +19,17 @@ This launches RViz and shows the various frames
 ```
 roslaunch rooster_description view_urdf.launch
 ```
+
+## Rooster v3:
+Note that on Rooster v3, the computer, the camera and the lidar are all in one package. To ease the integration with other 
+robots (e.g., Ghost, Husky), the base frame is re-defined to be at the bottom of the device (i.e., the computer case) 
+on the intersection between the sagittal and transversal plane, with x-axis forward, y-axis left and z-axis up.
+The z-axis coincident to the z-axis Ouster sensor frame, with an offset of 77.250 mm.
+
+**WARNING:** the base frame is NOT coincident with the geometric center of the rectangle made by the bottom screw holes.
+There is an offset of 0.450 mm on the left between these two points.
+
+**IMPORTANT:** note also that the Ouster is rotated 45 deg clockwise for cabling reasons.
+
+
+
