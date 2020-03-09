@@ -3,26 +3,28 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
   <xacro:include filename="$(find rooster_description)/urdf/ouster.urdf.xacro" />
+
+  <!-- TODO make the xacro parametric against rooster version -->
   <xacro:arg name="simulation" default="false" />
   <link name="base" />
   <link name="base_inertia">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://rooster_description/urdf/meshes/rooster_mount_v1.dae" />
+        <mesh filename="package://rooster_description/urdf/meshes/rooster_mount_v3.dae" />
       </geometry>
     </visual>
     <inertial>
-      <!-- CoM computed from CAD assuming material is ABS (density 1.052e-6 kg/mm^3)-->
+      <!-- TODO Update inertia parameters -->
       <origin xyz="-12.256e-3 -0.092e-3 -29.959e-3" rpy="0 0 0" />
       <mass value="0.212" />
       <inertia ixx="3.541e-4" ixy="5.656e-6" ixz="-6.046e-5"
       iyy="5.340e-4" iyz="-7.84e-6" izz="3.672e-4" />
     </inertial>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+	    <origin xyz="7e-3 0 ${77.25e-3/2}" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://rooster_description/urdf/meshes/rooster_mount_v1.dae" />
+	      <box size="133e-3 114e-3 77.25e-3" />
       </geometry>
     </collision>
   </link>
@@ -33,7 +35,7 @@
   </joint>
   <!-- add OS1 Ouster Lidar sensor -->
   <os1_device name="os1_sensor" parent="base">
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0 0 77.258e-3" rpy="0 0 ${-pi/4}" />
     <xacro:arg name="simulation" default="$(arg simulation)" />
   </os1_device>
   <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
@@ -43,7 +45,7 @@
   </sensor_d435>
   <link name="realsense_parent" />
   <joint name="base_to_realsense" type="fixed">
-    <origin xyz="43.7e-3 7.5e-3 -58.5e-3" rpy="0 0 0" />
+    <origin xyz="73.65e-3 7.5e-3 50.75e-3" rpy="0 0 0" />
     <parent link="base" />
     <child link="realsense_parent" />
   </joint>
