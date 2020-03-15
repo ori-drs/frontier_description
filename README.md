@@ -1,4 +1,6 @@
 # Rooster Description
+This package contains the URDF description file of the **Ro**o**ster** (**R**ealsense + **O**u**ster**), a compact
+handheld device designed to perform visual-inertial and LIDAR navigation algorithms.
 
 ## Dependencies:
  - [realsense2_description](https://github.com/IntelRealSense/realsense-ros/tree/development/realsense2_description)
