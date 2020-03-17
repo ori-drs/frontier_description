@@ -2,7 +2,7 @@
 
 <launch>
   <arg name="simulation" default="false" />
-  <arg name="model" default="$(find rooster_description)/urdf/rooster.urdf.xacro" />
+  <arg name="model" default="$(find rooster_description)/urdf/rooster_standalone.urdf.xacro" />
   <arg name="version" default="1" />
 
   <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation)" />

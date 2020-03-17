@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot name="rooster" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- include the RealSense d435 from official Intel's repository -->
+  <xacro:include filename="$(find rooster_description)/urdf/rooster.urdf.xacro" />
+  <xacro:arg name="simulation" default="false" />
+  <rooster_device parent="base" simulation="$(arg simulation)">
+    <!-- this transform makes the robot base coincident with the front camera link -->
+    <origin xyz="-0.08425 -0.025 -0.06325" rpy="0 0 0" />
+  </rooster_device>
+</robot>
+

@@ -4,7 +4,7 @@
 <robot name="os1" xmlns:xacro="http://www.ros.org/wiki/xacro">
 <xacro:arg name="simulation" default="false" />
 
-<xacro:macro name="os1_device" params="parent *origin name:=os1_lidar">
+<xacro:macro name="os1_device" params="parent *origin name:=os1_lidar simulation:=false">
   <joint name="${parent}_to_ouster" type="fixed">
     <xacro:insert_block name="origin"/>
     <parent link="${parent}" />
@@ -35,7 +35,7 @@
   </link>
 
   <!-- if simulated sensor, produce extra frames as fixed -->
-  <xacro:if value="$(arg simulation)">
+  <xacro:if value="${simulation}">
     <joint name="ouster_sensor_to_lidar" type="fixed">
       <!-- origin queried from device -->
       <origin xyz="0 0 0.03618" rpy="0 0 ${pi}" />
