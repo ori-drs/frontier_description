@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="rooster" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- include the RealSense d435 from official Intel's repository -->
-  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find rooster_description)/urdf/ouster.urdf.xacro" />
 
   <!-- TODO make the xacro parametric against rooster version -->
