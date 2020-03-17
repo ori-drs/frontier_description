@@ -10,16 +10,17 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
  - `rooster.urdf.xacro`: macro definition of the Rooster device, which you can instantiate on any robot
  - `rooster_standalone.urdf.xacro`: Rooster as a standalone robot. The root link is called `base` and its origin
    is coincident with the `camera_link` frame (see below)
+ - `ouster.urdf.xacro`: macro definition of the Ouster OS-1 LIDAR sensor
 
-## Macro Parameters
+## Rooster Macro Parameters
  - `simulation`: if true, it generates all the links for optical frames that are normally advertized by the sensor drivers
  - `parent`: name of the root link of the device (default is: `base`)
  - `origin`: xacro block that connects `parent` to `base_mount`
 
-## Standalone Xacro Arguments:
+## Standalone Rooster Xacro Arguments:
  - `simulation` : same as the macro parameter
 
-## Frames:
+## Standalone  Rooster URDF Frames:
  - `base` : coincident with the left camera optical frame with x-forward, y-left, z-up convention. The ground truth is expressed in this frame.
  - `base_mount`: located at the bottom of the Rooster, with z-axis coincident with the ouster sensor frame.
  - `realsense_parent` : the frame located at the bottom screw hole plate of the RealSense D435i is located here
@@ -36,5 +37,11 @@ This launches RViz and shows the various frames of the standalone robot:
 ```
 roslaunch rooster_description view_urdf.launch
 ```
-
-
+## URDF Generation and Inspection
+You can generate the URDF with all the simulated frames by launchng the `xacro` command.  
+The resulting URDF can be then inspected with the `urdf_to_graphiz` utility:
+```
+xacro rooster_standalone.urdf.xacro simulation:=true > rooster.urdf
+urdf_to_graphiz rooster.urdf
+evince rooster.pdf
+```
