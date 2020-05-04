@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /RobotModel1
         - /TF1
         - /TF1/Frames1
         - /OS1 Sensor Frame1
@@ -14,6 +15,10 @@ Panels:
         - /OS1 IMU Frame1
         - /RealSense Parent Frame1
         - /RealSense Infra1 Optical Frame1
+        - /cam0_kalibr1
+        - /cam0_kalibr2
+        - /imu_kalibr01
+        - /imu_kalibr02
       Splitter Ratio: 0.48801368474960327
     Tree Height: 751
   - Class: rviz/Selection
@@ -60,7 +65,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Alpha: 1
+    - Alpha: 0.5
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
@@ -74,11 +79,23 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        base_inertia:
+        base_mount:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        bottom_screws_center:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        cam0_kalibr:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        cam1_kalibr:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         camera_accel_frame:
           Alpha: 1
           Show Axes: false
@@ -136,6 +153,14 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        imu_kalibr0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        imu_kalibr1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         os1_imu:
           Alpha: 1
           Show Axes: false
@@ -174,26 +199,26 @@ Visualization Manager:
       Update Interval: 0
       Value: false
     - Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.10000000149011612
       Name: OS1 Sensor Frame
       Radius: 0.0010000000474974513
       Reference Frame: os1_sensor
-      Value: true
+      Value: false
     - Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.10000000149011612
       Name: Rooster Base
       Radius: 0.0010000000474974513
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.10000000149011612
       Name: OS1 Lidar Frame
       Radius: 0.0010000000474974513
       Reference Frame: os1_lidar
-      Value: true
+      Value: false
     - Class: rviz/Axes
       Enabled: true
       Length: 0.10000000149011612
@@ -202,12 +227,12 @@ Visualization Manager:
       Reference Frame: os1_imu
       Value: true
     - Class: rviz/Axes
-      Enabled: true
+      Enabled: false
       Length: 0.10000000149011612
       Name: RealSense Parent Frame
       Radius: 0.0010000000474974513
       Reference Frame: realsense_parent
-      Value: true
+      Value: false
     - Class: rviz/Axes
       Enabled: true
       Length: 0.10000000149011612
@@ -215,9 +240,37 @@ Visualization Manager:
       Radius: 0.0010000000474974513
       Reference Frame: camera_infra1_optical_frame
       Value: true
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 0.07999999821186066
+      Name: cam0_kalibr
+      Radius: 0.0020000000949949026
+      Reference Frame: cam0_kalibr
+      Value: true
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 0.07999999821186066
+      Name: cam0_kalibr
+      Radius: 0.0020000000949949026
+      Reference Frame: cam1_kalibr
+      Value: true
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 0.07999999821186066
+      Name: imu_kalibr0
+      Radius: 0.0020000000949949026
+      Reference Frame: imu_kalibr0
+      Value: true
+    - Class: rviz/Axes
+      Enabled: true
+      Length: 0.07999999821186066
+      Name: imu_kalibr0
+      Radius: 0.0020000000949949026
+      Reference Frame: imu_kalibr1
+      Value: true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
+    Background Color: 255; 255; 255
     Default Light: true
     Fixed Frame: base
     Frame Rate: 30
@@ -243,7 +296,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.31303200125694275
+      Distance: 0.23648789525032043
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -258,10 +311,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.604796826839447
+      Pitch: 0.2547968924045563
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.4254037141799927
+      Yaw: 5.558572292327881
     Saved: ~
 Window Geometry:
   Displays:

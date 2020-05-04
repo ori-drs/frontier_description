@@ -70,6 +70,29 @@
       <parent link="base_mount" />
       <child link="bottom_screws_center" />
     </joint>
+
+<link name="cam0_kalibr"/>
+<joint name="imu_to_cam0_kalibr" type="fixed">
+  <origin xyz=" 0.0424927  0.0646684 -0.0184578" rpy="1.59163 -3.1276 2.36028" />
+  <parent link="os1_imu" />
+  <child link="cam0_kalibr" />
+</joint>
+<link name="imu_kalibr0"/>
+<joint name="cam0_to_imu_kalibr" type="fixed">
+  <origin xyz=" 0.0156275 -0.0198165 -0.0754414" rpy="  1.54147 -0.780804 0.0346379" />  <parent link="camera_infra1_optical_frame" />
+  <child link="imu_kalibr0" />
+</joint>
+<link name="cam1_kalibr"/>
+<joint name="imu_to_cam1_kalibr" type="fixed">
+  <origin xyz=" 0.0779608  0.0293712 -0.0177457" rpy="  1.5916 -3.12759  2.36187" />
+  <parent link="os1_imu" />
+  <child link="cam1_kalibr" />
+</joint>
+<link name="imu_kalibr1"/>
+<joint name="cam1_to_imu_kalibr" type="fixed">
+  <origin xyz="-0.0345365  -0.019802 -0.0753032" rpy="  1.54156 -0.779214 0.0345594" />  <parent link="camera_infra2_optical_frame" />
+  <child link="imu_kalibr1" />
+</joint>
   </xacro:macro>
 </robot>
 
