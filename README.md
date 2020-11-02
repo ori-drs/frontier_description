@@ -16,9 +16,11 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
  - `simulation`: if true, it generates all the links for optical frames that are normally advertized by the sensor drivers
  - `parent`: name of the root link of the device (default is: `base`)
  - `origin`: xacro block that connects `parent` to `base_mount`
+ - `ground_camera`: if true, it adds the ground facing camera and the relative shim to support it
 
 ## Standalone Rooster Xacro Arguments:
  - `simulation` : same as the macro parameter
+ - `ground_camera`: same as the macro parameter
 
 ## Standalone  Rooster URDF Frames:
  - `base` : coincident with the left camera optical frame with x-forward, y-left, z-up convention. The ground truth is expressed in this frame.
@@ -30,6 +32,7 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
  - `os1_imu` : has fixed offset from `os1_sensor` retrived from documentation or via interactive probing to the device.
  - `bottom_screws_center`: Convenience frame used for mounting on other robots only.
                            It is at the intersection between the lines connecting the bottom screw holes (not visible on URDF). 
+ - `ground_camera_shim`: concentric with top screw of the 40 deg down shim, on the surface of the NUC cover
                            
 
 ## Example
