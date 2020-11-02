@@ -17,7 +17,7 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find rooster_description)/urdf/ouster.urdf.xacro" />
-  <xacro:macro name="rooster_device" params="parent:=base *origin simulation:=false">
+  <xacro:macro name="rooster_device" params="parent:=base *origin simulation:=false ground_camera:=false">
     <!-- TODO make the xacro parametric against rooster version -->
     <link name="${parent}" />
     <link name="base_mount">
@@ -70,6 +70,31 @@
       <parent link="base_mount" />
       <child link="bottom_screws_center" />
     </joint>
+    <xacro:if value="$(arg ground_camera)">
+      <link name="ground_camera_shim">
+        <visual>
+          <geometry>
+            <mesh filename="package://rooster_description/urdf/meshes/rooster_40deg_shim.dae" />
+          </geometry>
+        </visual>
+        <inertial>
+        <!-- TODO Update inertia parameters -->
+        <origin xyz="9.513e-3 -2.85e-3 -12.423e-3" rpy="0 0 0" />
+        <mass value="0.01" />
+        <inertia ixx="10.931e-6" ixy="0.177e-6" ixz="-0.253e-6"
+                 iyy="1.199e-6" iyz="0.075e-6" izz="10.21e-6" />
+        </inertial>
+
+      </link>
+      <joint name="ground_camera_shim_joint" type="fixed">
+        <origin xyz="59.5e-3 0 38.7e-3" rpy="0 0 0" />
+        <parent link="base_mount" />
+        <child link="ground_camera_shim" />
+      </joint>
+      <xacro:sensor_d435i name="ground_camera" parent="ground_camera_shim" use_nominal_extrinsics="${simulation}">
+        <origin xyz="14.345e-3 7.5e-3 -25.212e-3" rpy="0 ${pi*40.0/180.0} 0" />
+      </xacro:sensor_d435i>
+    </xacro:if>
   </xacro:macro>
 </robot>
 
