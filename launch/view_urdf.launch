@@ -1,9 +1,14 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="rviz" default="true" />
+  <arg name="simulation" default="true" />
+
   <include file="$(find rooster_description)/launch/load.launch">
-    <arg name="simulation" value="true" />
+    <arg name="simulation" value="$(arg simulation)" />
   </include>
+
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rooster_description)/config/display_urdf.rviz" />
+
+  <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find rooster_description)/config/display_urdf.rviz" />
 </launch>
 

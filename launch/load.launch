@@ -3,7 +3,7 @@
 <launch>
   <arg name="simulation" default="false" />
   <arg name="model" default="$(find rooster_description)/urdf/rooster_standalone.urdf.xacro" />
-  <arg name="version" default="1" />
+  <arg name="ground_camera" default="true" />
 
-  <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation)" />
+  <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation) ground_camera:=$(arg ground_camera)" />
 </launch>
