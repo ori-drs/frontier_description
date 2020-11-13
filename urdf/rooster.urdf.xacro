@@ -46,10 +46,10 @@
       <child link="base_mount" />
       <xacro:insert_block name="origin" />
     </joint>
-    <!-- add OS1 Ouster Lidar sensor -->
-    <xacro:os1_device name="os1_sensor" parent="base_mount" simulation="${simulation}">
+    <!-- add OS Ouster Lidar sensor -->
+    <xacro:os_device name="os1_sensor" parent="base_mount" simulation="${simulation}">
       <origin xyz="0 0 77.258e-3" rpy="0 0 ${-pi/4}" />
-    </xacro:os1_device>
+    </xacro:os_device>
     <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
     <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">
       <origin xyz="0 0 0" rpy="0 0 0" />
