@@ -54,8 +54,8 @@
     <joint name="ouster_sensor_to_lidar" type="fixed">
       <!-- origin queried from device -->
       <origin xyz="0 0 0.03618" rpy="0 0 ${pi}" />
-      <parent link="os1_sensor" />
-      <child link="os1_lidar" />
+      <parent link="os_sensor" />
+      <child link="os_lidar" />
     </joint>
     <link name="os_lidar" />
     <joint name="ouster_sensor_to_imu" type="fixed">
