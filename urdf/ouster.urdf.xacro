@@ -15,17 +15,17 @@
 -->
 
 
-<!-- Ouster OS1 Lidar Sensor -->
-<robot name="os1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<!-- Ouster OS Lidar Sensor -->
+<robot name="os" xmlns:xacro="http://www.ros.org/wiki/xacro">
 <xacro:arg name="simulation" default="false" />
 
-<xacro:macro name="os1_device" params="parent *origin name:=os1_lidar simulation:=false">
+<xacro:macro name="os_device" params="parent *origin name:=os1_lidar simulation:=false">
   <joint name="${parent}_to_ouster" type="fixed">
     <xacro:insert_block name="origin"/>
     <parent link="${parent}" />
-    <child link="os1_sensor" />
+    <child link="os_sensor" />
   </joint>
-  <link name="os1_sensor">
+  <link name="os_sensor">
     <visual>
       <origin xyz="0 0 0" rpy="${pi/2} 0 ${pi/2}" />
       <geometry>
@@ -54,17 +54,17 @@
     <joint name="ouster_sensor_to_lidar" type="fixed">
       <!-- origin queried from device -->
       <origin xyz="0 0 0.03618" rpy="0 0 ${pi}" />
-      <parent link="os1_sensor" />
-      <child link="os1_lidar" />
+      <parent link="os_sensor" />
+      <child link="os_lidar" />
     </joint>
-    <link name="os1_lidar" />
+    <link name="os_lidar" />
     <joint name="ouster_sensor_to_imu" type="fixed">
       <!-- origin queried from device -->
       <origin xyz="0.006253 -0.011775 0.007645" rpy="0 0 0" />
-      <parent link="os1_sensor" />
-      <child link="os1_imu" />
+      <parent link="os_sensor" />
+      <child link="os_imu" />
     </joint>
-    <link name="os1_imu" />
+    <link name="os_imu" />
   </xacro:if> 
 </xacro:macro>
 
