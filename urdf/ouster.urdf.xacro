@@ -50,10 +50,11 @@
   </link>
 
   <!-- if simulated sensor, produce extra frames as fixed -->
+  <!-- real device publishes these frames directly -->
   <xacro:if value="${simulation}">
     <joint name="ouster_sensor_to_lidar" type="fixed">
       <!-- origin queried from device -->
-      <origin xyz="0 0 0.03618" rpy="0 0 ${pi}" />
+      <origin xyz="0.006253 -0.011775 0.007645" rpy="0 0 0" />
       <parent link="os_sensor" />
       <child link="os_lidar" />
     </joint>
