@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(rooster_description)
 
 find_package(catkin REQUIRED COMPONENTS
@@ -12,7 +12,7 @@ set(xacro_files
   ${CMAKE_CURRENT_SOURCE_DIR}/urdf/rooster_standalone.urdf.xacro
 )
 
-xacro_add_files(${xacro_files} INORDER INSTALL DESTINATION urdf)
+xacro_add_files(${xacro_files} INSTALL DESTINATION urdf)
 
 install(DIRECTORY config launch urdf
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
