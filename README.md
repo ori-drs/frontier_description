@@ -3,8 +3,9 @@ This package contains the URDF description file of the **Ro**o**ster** (**R**eal
 handheld device designed to perform visual-inertial and LIDAR navigation algorithms.
 
 ## Dependencies:
- - [realsense2_description](https://github.com/ori-drs/realsense/tree/development-fixes) fork of the [official Intel's repo](https://github.com/IntelRealSense/realsense-ros) at its latest development release (2.2.13) with some additional issue fixes.
- - [ddynamic_reconfigure](https://github.com/pal-robotics/ddynamic_reconfigure) this is a dependency of the `realsense2_camera` that should be available through APT (`ros-melodic-ddynamic-reconfigure`), but if you experience compilation issues, clone this fork at `kinetic-devel` branch.
+ - [realsense2_description](https://github.com/IntelRealSense/realsense-ros/tree/development/realsense2_description) available from the  [Intel's repo](https://github.com/IntelRealSense/realsense-ros) or APT (`ros-melodic-realsense2-description`) 
+ - [ddynamic_reconfigure](https://github.com/pal-robotics/ddynamic_reconfigure) this is a dependency of the `realsense2_camera` that should be available through APT (`ros-melodic-ddynamic-reconfigure`).
+ - [ouster_description](https://github.com/ori-drs/ouster_example/tree/create-ouster-description/ouster_description) available at the DRS fork of the [ouster_example](https://github.com/ori-drs/ouster_example) repository
 
 ## Files
  - `rooster.urdf.xacro`: macro definition of the Rooster device, which you can instantiate on any robot
