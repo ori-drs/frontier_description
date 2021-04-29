@@ -19,7 +19,6 @@
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
   <xacro:macro name="rooster_device" params="parent:=base *origin simulation:=false ground_camera:=false">
     <!-- TODO make the xacro parametric against rooster version -->
-    <link name="${parent}" />
     <link name="base_mount">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -70,7 +69,7 @@
       <parent link="base_mount" />
       <child link="bottom_screws_center" />
     </joint>
-    <xacro:if value="$(arg ground_camera)">
+    <xacro:if value="${ground_camera}">
       <link name="ground_camera_shim">
         <visual>
           <geometry>
