@@ -16,7 +16,7 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
 ## Rooster Macro Parameters
  - `simulation`: if true, it generates all the links for optical frames that are normally advertized by the sensor drivers
  - `parent`: name of the root link of the device (default is: `base`)
- - `origin`: xacro block that connects `parent` to `base_mount`
+ - `origin`: xacro block that connects `parent` to `rooster_mount`
  - `ground_camera`: if true, it adds the ground facing camera and the relative shim to support it
 
 ## Standalone Rooster Xacro Arguments:
@@ -25,7 +25,7 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
 
 ## Standalone  Rooster URDF Frames:
  - `base` : coincident with the left camera optical frame with x-forward, y-left, z-up convention. The ground truth is expressed in this frame.
- - `base_mount`: located at the bottom of the Rooster, with z-axis coincident with the ouster sensor frame.
+ - `rooster_mount`: located at the bottom of the Rooster, with z-axis coincident with the ouster sensor frame.
  - `realsense_parent` : the frame located at the bottom screw hole plate of the RealSense D435i is located here
  - `os1_sensor` : conventional base link for the Ouster. 
                   It is at the bottom of the sensor and the top of the Rooster, 45 deg clockwise rotate on z-axis due to cabling.
