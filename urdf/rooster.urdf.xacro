@@ -19,7 +19,7 @@
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
   <xacro:macro name="rooster_device" params="parent:=base *origin simulation:=false ground_camera:=false">
     <!-- TODO make the xacro parametric against rooster version -->
-    <link name="rooster_base_mount">
+    <link name="rooster_mount">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -42,11 +42,11 @@
     </link>
     <joint name="${parent}_to_mount" type="fixed">
       <parent link="${parent}" />
-      <child link="rooster_base_mount" />
+      <child link="rooster_mount" />
       <xacro:insert_block name="origin" />
     </joint>
     <!-- add OS Ouster Lidar sensor -->
-    <xacro:os_device name="os1_sensor" parent="rooster_base_mount" simulation="${simulation}">
+    <xacro:os_device name="os1_sensor" parent="rooster_mount" simulation="${simulation}">
       <origin xyz="0 0 77.258e-3" rpy="0 0 ${-pi/4}" />
     </xacro:os_device>
     <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
@@ -56,7 +56,7 @@
     <link name="realsense_parent" />
     <joint name="base_to_realsense" type="fixed">
       <origin xyz="73.65e-3 7.5e-3 50.75e-3" rpy="0 0 0" />
-      <parent link="rooster_base_mount" />
+      <parent link="rooster_mount" />
       <child link="realsense_parent" />
     </joint>
     <!-- the geometric center of the bottom screws is not
@@ -64,9 +64,9 @@
          (i.e., geometry center of device, 
          coincident with ouster center) -->
     <link name="bottom_screws_center" />
-    <joint name="rooster_base_mount_to_bottom_screws_center" type="fixed">
+    <joint name="rooster_mount_to_bottom_screws_center" type="fixed">
       <origin xyz="0 0.475e-3 0" rpy="0 0 0" />
-      <parent link="rooster_base_mount" />
+      <parent link="rooster_mount" />
       <child link="bottom_screws_center" />
     </joint>
     <xacro:if value="${ground_camera}">
@@ -87,7 +87,7 @@
       </link>
       <joint name="ground_camera_shim_joint" type="fixed">
         <origin xyz="59.5e-3 0 38.7e-3" rpy="0 0 0" />
-        <parent link="rooster_base_mount" />
+        <parent link="rooster_mount" />
         <child link="ground_camera_shim" />
       </joint>
       <xacro:sensor_d435i name="ground_camera" parent="ground_camera_shim" use_nominal_extrinsics="${simulation}">
