@@ -94,6 +94,12 @@
         <origin xyz="14.345e-3 7.5e-3 -25.212e-3" rpy="0 ${pi*40.0/180.0} 0" />
       </xacro:sensor_d435i>
     </xacro:if>
+
+    <!-- Bring in simulation data for Gazebo. -->
+    <!-- <xacro:if value="${simulation}"> -->
+      <xacro:include filename="$(find rooster_description)/urdf/ouster.gazebo" />
+    <!-- </xacro:if> -->
   </xacro:macro>
+
 </robot>
 
