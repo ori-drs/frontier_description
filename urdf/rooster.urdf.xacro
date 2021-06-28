@@ -17,7 +17,13 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
-  <xacro:macro name="rooster_device" params="parent:=base *origin simulation:=false ground_camera:=false">
+  <xacro:macro name="rooster_device" params="parent:=base
+                                             *origin
+                                             simulation:=false
+                                             ground_camera:=false
+                                             ouster_vertical_angle:=45
+                                             ouster_beams:=64
+                                             ouster_hz:=10">
     <!-- TODO make the xacro parametric against rooster version -->
     <link name="rooster_mount">
       <visual>
@@ -83,8 +89,8 @@
         <inertia ixx="10.931e-6" ixy="0.177e-6" ixz="-0.253e-6"
                  iyy="1.199e-6" iyz="0.075e-6" izz="10.21e-6" />
         </inertial>
-
       </link>
+
       <joint name="ground_camera_shim_joint" type="fixed">
         <origin xyz="59.5e-3 0 38.7e-3" rpy="0 0 0" />
         <parent link="rooster_mount" />
@@ -96,9 +102,34 @@
     </xacro:if>
 
     <!-- Bring in simulation data for Gazebo. -->
-    <!-- <xacro:if value="${simulation}"> -->
-      <xacro:include filename="$(find rooster_description)/urdf/ouster.gazebo" />
-    <!-- </xacro:if> -->
+    <xacro:if value="${simulation}">
+      <!-- Simulated Ouster -->
+      <xacro:include filename="$(find rooster_description)/urdf/gazebo/ouster.gazebo"/>
+      <xacro:ouster_gazebo name="ouster" min_vertical_angle="${ouster_vertical_angle}"
+                                         max_vertical_angle="${-ouster_vertical_angle}"
+                                         hz="${ouster_hz}"
+                                         lasers="${ouster_beams}">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:ouster_gazebo>
+      
+      <!-- Simulated Realsense -->
+      <xacro:include filename="$(find rooster_description)/urdf/gazebo/realsense_d435.gazebo"/>
+      <!-- Add front camera -->
+      <xacro:realsense_d435_gazebo name="camera">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:realsense_d435_gazebo>
+      <!-- Add ground camera -->
+      <xacro:if value="${ground_camera}">
+        <xacro:realsense_d435_gazebo name="ground_camera">
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:realsense_d435_gazebo>
+      </xacro:if>
+      <!-- Add ground truth -->
+      <xacro:include filename="$(find rooster_description)/urdf/gazebo/ground_truth.gazebo"/>
+      <xacro:ground_truth_gazebo parent="${parent}">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+      </xacro:ground_truth_gazebo>
+    </xacro:if>
   </xacro:macro>
 
 </robot>

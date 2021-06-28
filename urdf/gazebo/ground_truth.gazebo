@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="ground_truth_gazebo" params="parent:=base
+                                                  *origin">
+
+    <gazebo>
+      <plugin name="rooster_groundtruth_sim" filename="libgazebo_ros_p3d.so">
+        <updateRate>100.0</updateRate>
+        <bodyName>${parent}</bodyName>
+        <topicName>ground_truth/odom</topicName>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>world</frameName>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>
