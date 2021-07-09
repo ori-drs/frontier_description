@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="realsense_d435_gazebo" params="name:=realsense
+                                            simulate_stereo:=true
+                                            image_height:=480
+                                            image_width:=848
+                                            fps:=15.0
+                                            *origin">
+
+    <!-- Gazebo plugin -->
+    <!-- Depth sensor -->
+    <gazebo reference="${name}_depth_frame">
+      <sensor type="depth" name="${name}_depth">
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+        <update_rate>${fps}</update_rate>
+        <camera>
+          <horizontal_fov>1.50098</horizontal_fov> <!-- 86 degrees -->
+          <image>
+            <width>${image_width}</width>
+            <height>${image_height}</height>
+            <format>R8G8B8</format>
+          </image>
+          <depth_camera>
+
+          </depth_camera>
+          <clip>
+            <near>0.1</near>
+            <far>10.0</far>
+          </clip>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>${name}</cameraName>
+          <frameName>${name}_depth_optical_frame</frameName>
+          <imageTopicName>color/image_raw</imageTopicName>
+          <depthImageTopicName>aligned_depth_to_color/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+          <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>aligned_depth_to_color/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudCutoff>0.0</pointCloudCutoff>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <CxPrime>0.0</CxPrime>
+          <Cx>0.0</Cx>
+          <Cy>0.0</Cy>
+          <focalLength>0.0</focalLength>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+    <!-- Gazebo plugin - Stereo-->
+    <xacro:if value="${simulate_stereo}">
+      <gazebo reference="${name}_infra1_frame">
+        <sensor type="multicamera" name="${name}_infra1">
+          <always_on>1</always_on>
+          <visualize>true</visualize>
+          <update_rate>30</update_rate>
+          <camera name="left">
+            <horizontal_fov>1.5917</horizontal_fov>
+            <image>
+              <width>${image_width}</width>
+              <height>${image_height}</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <camera name="right">
+            <pose>0 -0.05 0 0 0 0</pose>
+            <horizontal_fov>1.5917</horizontal_fov>
+            <image>
+              <width>${image_width}</width>
+              <height>${image_height}</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>${name}</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>${name}_infra1_optical_frame</frameName>
+            <rightFrameName>${name}_infra2_optical_frame</rightFrameName>
+            <hackBaseline>0.050</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+          </plugin>
+        </sensor>
+      </gazebo>
+    </xacro:if>  <!-- simulate_stereo -->
+  </xacro:macro> <!-- xacro macro-->
+
+</robot>
