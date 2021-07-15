@@ -23,7 +23,8 @@
                                              ground_camera:=false
                                              ouster_vertical_angle:=45
                                              ouster_beams:=64
-                                             ouster_hz:=10">
+                                             ouster_hz:=10
+                                             ouster_rotation=${-pi/4}">
     <!-- TODO make the xacro parametric against rooster version -->
     <link name="rooster_mount">
       <visual>
@@ -53,7 +54,7 @@
     </joint>
     <!-- add OS Ouster Lidar sensor -->
     <xacro:os_device name="os1_sensor" parent="rooster_mount" simulation="${simulation}">
-      <origin xyz="0 0 77.258e-3" rpy="0 0 ${-pi/4}" />
+      <origin xyz="0 0 77.258e-3" rpy="0 0 ${ouster_rotation}" />
     </xacro:os_device>
     <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
     <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">

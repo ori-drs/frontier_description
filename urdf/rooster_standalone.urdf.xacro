@@ -18,8 +18,9 @@
   <xacro:include filename="$(find rooster_description)/urdf/rooster.urdf.xacro" />
   <xacro:arg name="simulation" default="false" />
   <xacro:arg name="ground_camera" default="false" />
+  <xacro:arg name="ouster_rotation" default="${-pi/4}" />
   <link name="base"/>
-  <xacro:rooster_device parent="base" simulation="$(arg simulation)" ground_camera="$(arg ground_camera)">
+  <xacro:rooster_device parent="base" simulation="$(arg simulation)" ground_camera="$(arg ground_camera)" ouster_rotation="$(arg ouster_rotation)">
     <!-- this transform makes the robot base coincident with the front camera link -->
     <origin xyz="-0.08425 -0.025 -0.06325" rpy="0 0 0" />
   </xacro:rooster_device>
