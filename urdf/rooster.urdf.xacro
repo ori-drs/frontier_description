@@ -24,7 +24,7 @@
                                              ouster_vertical_angle:=45
                                              ouster_beams:=64
                                              ouster_hz:=10
-                                             ouster_rotation=${-pi/4}">
+                                             ouster_rotation:=${-pi/4}">
     <!-- TODO make the xacro parametric against rooster version -->
     <link name="rooster_mount">
       <visual>
@@ -67,8 +67,8 @@
       <child link="realsense_parent" />
     </joint>
     <!-- the geometric center of the bottom screws is not
-         perfectly coincident with the base frame 
-         (i.e., geometry center of device, 
+         perfectly coincident with the base frame
+         (i.e., geometry center of device,
          coincident with ouster center) -->
     <link name="bottom_screws_center" />
     <joint name="rooster_mount_to_bottom_screws_center" type="fixed">
@@ -112,7 +112,7 @@
                                          lasers="${ouster_beams}">
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:ouster_gazebo>
-      
+
       <!-- Simulated Realsense -->
       <xacro:include filename="$(find rooster_description)/urdf/gazebo/realsense_d435.gazebo"/>
       <!-- Add front camera -->
