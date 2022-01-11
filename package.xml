@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>rooster_description</name>
+  <name>frontier_description</name>
   <version>0.0.1</version>
-  <description>The rooster_description package</description>
+  <description>The frontier_description package</description>
 
   <maintainer email="mcamurri@robots.ox.ac.uk">Marco Camurri</maintainer>
   <author email="mcamurri@robots.ox.ac.uk">Marco Camurri</author>

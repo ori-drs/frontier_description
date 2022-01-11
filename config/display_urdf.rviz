@@ -10,7 +10,7 @@ Panels:
         - /TF1/Frames1
         - /OS1 Sensor Frame1
         - /OS1 Sensor Frame1/Status1
-        - /Rooster Base1
+        - /Frontier Base1
         - /OS1 Lidar Frame1
         - /OS1 IMU Frame1
         - /RealSense Parent Frame1
@@ -250,7 +250,7 @@ Visualization Manager:
     - Class: rviz/Axes
       Enabled: true
       Length: 0.10000000149011612
-      Name: Rooster Base
+      Name: Frontier Base
       Radius: 0.0010000000474974513
       Reference Frame: <Fixed Frame>
       Value: true
