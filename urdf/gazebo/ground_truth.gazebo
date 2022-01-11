@@ -5,7 +5,7 @@
                                                   *origin">
 
     <gazebo>
-      <plugin name="rooster_groundtruth_sim" filename="libgazebo_ros_p3d.so">
+      <plugin name="frontier_groundtruth_sim" filename="libgazebo_ros_p3d.so">
         <updateRate>100.0</updateRate>
         <bodyName>${parent}</bodyName>
         <topicName>ground_truth/odom</topicName>

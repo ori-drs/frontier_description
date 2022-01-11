@@ -13,17 +13,17 @@
    See the License for the specific language governing permissions and
    limitations under the License. -->
 
-<robot name="rooster" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="frontier" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <!-- include the RealSense d435 from official Intel's repository -->
-  <xacro:include filename="$(find rooster_description)/urdf/rooster.urdf.xacro" />
+  <xacro:include filename="$(find frontier_description)/urdf/frontier.urdf.xacro" />
   <xacro:arg name="simulation" default="false" />
   <xacro:arg name="ground_camera" default="false" />
   <!-- Need to put the arithmetic computation into quotes because args must be strings -->
   <xacro:arg name="ouster_rotation" default="'${-pi/4}'" />
   <link name="base"/>
-  <xacro:rooster_device parent="base" simulation="$(arg simulation)" ground_camera="$(arg ground_camera)" ouster_rotation="$(arg ouster_rotation)">
+  <xacro:frontier_device parent="base" simulation="$(arg simulation)" ground_camera="$(arg ground_camera)" ouster_rotation="$(arg ouster_rotation)">
     <!-- this transform makes the robot base coincident with the front camera link -->
     <origin xyz="-0.08425 -0.025 -0.06325" rpy="0 0 0" />
-  </xacro:rooster_device>
+  </xacro:frontier_device>
 </robot>
 

@@ -2,7 +2,7 @@
 
 <launch>
   <arg name="simulation"            default="false" />
-  <arg name="model"                 default="$(find rooster_description)/urdf/rooster_standalone.urdf.xacro" />
+  <arg name="model"                 default="$(find frontier_description)/urdf/frontier_standalone.urdf.xacro" />
   <arg name="ground_camera"         default="false" />
   <arg name="robot_state_publisher" default="false" />
   <!-- Sometimes the ouster may have a different rotation to the default-->

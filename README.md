@@ -1,6 +1,7 @@
-# Rooster Description
-This package contains the URDF description file of the **Ro**o**ster** (**R**ealsense + **O**u**ster**), a compact
+# Frontier Description
+This package contains the URDF description file of the Frontier, a compact
 handheld device designed to perform visual-inertial and LIDAR navigation algorithms.
+It was previously known as **Ro**o**ster** (**R**ealsense + **O**u**ster**) until 2022.
 
 ## Dependencies:
  - [realsense2_description](https://github.com/IntelRealSense/realsense-ros/tree/development/realsense2_description) available from the  [Intel's repo](https://github.com/IntelRealSense/realsense-ros) or APT (`ros-melodic-realsense2-description`) 
@@ -8,27 +9,27 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
  - [ouster_description](https://github.com/ori-drs/ouster_example/tree/create-ouster-description/ouster_description) available at the DRS fork of the [ouster_example](https://github.com/ori-drs/ouster_example) repository
 
 ## Files
- - `rooster.urdf.xacro`: macro definition of the Rooster device, which you can instantiate on any robot
- - `rooster_standalone.urdf.xacro`: Rooster as a standalone robot. The root link is called `base` and its origin
+ - `frontier.urdf.xacro`: macro definition of the Frontier device, which you can instantiate on any robot
+ - `frontier_standalone.urdf.xacro`: Frontier as a standalone robot. The root link is called `base` and its origin
    is coincident with the `camera_link` frame (see below)
  - `ouster.urdf.xacro`: macro definition of the Ouster OS-1 LIDAR sensor
 
-## Rooster Macro Parameters
+## Frontier Macro Parameters
  - `simulation`: if true, it generates all the links for optical frames that are normally advertized by the sensor drivers
  - `parent`: name of the root link of the device (default is: `base`)
- - `origin`: xacro block that connects `parent` to `rooster_mount`
+ - `origin`: xacro block that connects `parent` to `frontier_mount`
  - `ground_camera`: if true, it adds the ground facing camera and the relative shim to support it
 
-## Standalone Rooster Xacro Arguments:
+## Standalone Frontier Xacro Arguments:
  - `simulation` : same as the macro parameter
  - `ground_camera`: same as the macro parameter
 
-## Standalone  Rooster URDF Frames:
+## Standalone  Frontier URDF Frames:
  - `base` : coincident with the left camera optical frame with x-forward, y-left, z-up convention. The ground truth is expressed in this frame.
- - `rooster_mount`: located at the bottom of the Rooster, with z-axis coincident with the ouster sensor frame.
+ - `frontier_mount`: located at the bottom of the Frontier, with z-axis coincident with the ouster sensor frame.
  - `realsense_parent` : the frame located at the bottom screw hole plate of the RealSense D435i is located here
  - `os1_sensor` : conventional base link for the Ouster. 
-                  It is at the bottom of the sensor and the top of the Rooster, 45 deg clockwise rotate on z-axis due to cabling.
+                  It is at the bottom of the sensor and the top of the Frontier, 45 deg clockwise rotate on z-axis due to cabling.
  - `os1_lidar` : is looking backward and is in the middle of the sensor (as per official documentation)
  - `os1_imu` : has fixed offset from `os1_sensor` retrived from documentation or via interactive probing to the device.
  - `bottom_screws_center`: Convenience frame used for mounting on other robots only.
@@ -39,13 +40,13 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
 ## Example
 This launches RViz and shows the various frames of the standalone robot:
 ```
-roslaunch rooster_description view_urdf.launch
+roslaunch frontier_description view_urdf.launch
 ```
 ## URDF Generation and Inspection
 You can generate the URDF with all the simulated frames by launchng the `xacro` command.  
 The resulting URDF can be then inspected with the `urdf_to_graphiz` utility:
 ```
-xacro rooster_standalone.urdf.xacro simulation:=true > rooster.urdf
-urdf_to_graphiz rooster.urdf
-evince rooster.pdf
+xacro frontier_standalone.urdf.xacro simulation:=true > frontier.urdf
+urdf_to_graphiz frontier.urdf
+evince frontier.pdf
 ```
