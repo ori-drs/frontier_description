@@ -21,6 +21,9 @@
                                              *origin
                                              simulation:=false
                                              ground_camera:=false
+                                             left_camera:=false
+                                             right_camera:=false
+                                             rear_camera:=false
                                              ouster_vertical_angle:=45
                                              ouster_beams:=64
                                              ouster_hz:=10
@@ -57,15 +60,52 @@
       <origin xyz="0 0 77.258e-3" rpy="0 0 ${ouster_rotation}" />
     </xacro:os_device>
     <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
+    <!-- Front camera -->
     <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">
       <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:sensor_d435i>
     <link name="realsense_parent" />
-    <joint name="base_to_realsense" type="fixed">
+    <joint name="mount_to_realsense" type="fixed">
       <origin xyz="73.65e-3 7.5e-3 50.75e-3" rpy="0 0 0" />
       <parent link="frontier_mount" />
       <child link="realsense_parent" />
     </joint>
+    <!-- Left camera -->
+    <xacro:if value="${left_camera}">
+      <xacro:sensor_d435i name="camera_left" parent="realsense_left_parent" use_nominal_extrinsics="${simulation}">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:sensor_d435i>
+      <link name="realsense_left_parent" />
+      <joint name="mount_to_realsense_left" type="fixed">
+        <origin xyz="7.5e-3 -73.65e-3 50.75e-3" rpy="0 0 ${pi/2}" />
+        <parent link="frontier_mount" />
+        <child link="realsense_left_parent" />
+      </joint>
+    </xacro:if>
+    <!-- Right camera -->
+    <xacro:if value="${right_camera}">
+      <xacro:sensor_d435i name="camera_right" parent="realsense_right_parent" use_nominal_extrinsics="${simulation}">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:sensor_d435i>
+      <link name="realsense_right_parent" />
+      <joint name="mount_to_realsense_right" type="fixed">
+        <origin xyz="-7.5e-3 73.65e-3 50.75e-3" rpy="0 0 ${pi}" />
+        <parent link="frontier_mount" />
+        <child link="realsense_right_parent" />
+      </joint>
+    </xacro:if>
+    <!-- Rear camera -->
+    <xacro:if value="${rear_camera}">
+      <xacro:sensor_d435i name="camera_rear" parent="realsense_rear_parent" use_nominal_extrinsics="${simulation}">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </xacro:sensor_d435i>
+      <link name="realsense_rear_parent" />
+      <joint name="mount_to_realsense_rear" type="fixed">
+        <origin xyz="-73.65e-3 -7.5e-3 50.75e-3" rpy="0 0 ${-pi/2}" />
+        <parent link="frontier_mount" />
+        <child link="realsense_rear_parent" />
+      </joint>
+    </xacro:if>
     <!-- the geometric center of the bottom screws is not
          perfectly coincident with the base frame
          (i.e., geometry center of device,
