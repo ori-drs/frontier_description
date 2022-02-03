@@ -77,7 +77,7 @@
       </xacro:sensor_d435i>
       <link name="realsense_left_parent" />
       <joint name="mount_to_realsense_left" type="fixed">
-        <origin xyz="7.5e-3 -73.65e-3 50.75e-3" rpy="0 0 ${pi/2}" />
+        <origin xyz="0 67.65e-3 50.75e-3" rpy="0 0 ${pi/2}" />
         <parent link="frontier_mount" />
         <child link="realsense_left_parent" />
       </joint>
@@ -89,7 +89,7 @@
       </xacro:sensor_d435i>
       <link name="realsense_right_parent" />
       <joint name="mount_to_realsense_right" type="fixed">
-        <origin xyz="-7.5e-3 73.65e-3 50.75e-3" rpy="0 0 ${pi}" />
+        <origin xyz="0 -67.65e-3 50.75e-3" rpy="0 0 ${-pi/2}" />
         <parent link="frontier_mount" />
         <child link="realsense_right_parent" />
       </joint>
@@ -101,7 +101,7 @@
       </xacro:sensor_d435i>
       <link name="realsense_rear_parent" />
       <joint name="mount_to_realsense_rear" type="fixed">
-        <origin xyz="-73.65e-3 -7.5e-3 50.75e-3" rpy="0 0 ${-pi/2}" />
+        <origin xyz="-73.65e-3 -7.5e-3 50.75e-3" rpy="0 0 ${pi}" />
         <parent link="frontier_mount" />
         <child link="realsense_rear_parent" />
       </joint>
