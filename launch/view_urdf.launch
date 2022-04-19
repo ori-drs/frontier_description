@@ -2,9 +2,17 @@
 <launch>
   <arg name="rviz" default="true" />
   <arg name="simulation" default="true" />
+  <arg name="ground_camera"         default="false" />
+  <arg name="left_camera"           default="true" />
+  <arg name="right_camera"          default="true" />
+  <arg name="rear_camera"           default="false" />
 
   <include file="$(find frontier_description)/launch/load.launch">
     <arg name="simulation" value="$(arg simulation)" />
+    <arg name="ground_camera"         default="$(arg ground_camera)" />
+    <arg name="left_camera"           default="$(arg left_camera)" />
+    <arg name="right_camera"          default="$(arg right_camera)" />
+    <arg name="rear_camera"           default="$(arg rear_camera)" />
   </include>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
