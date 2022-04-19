@@ -3,8 +3,8 @@
   <arg name="rviz" default="true" />
   <arg name="simulation" default="true" />
   <arg name="ground_camera"         default="false" />
-  <arg name="left_camera"           default="false" />
-  <arg name="right_camera"          default="false" />
+  <arg name="left_camera"           default="true" />
+  <arg name="right_camera"          default="true" />
   <arg name="rear_camera"           default="false" />
 
   <include file="$(find frontier_description)/launch/load.launch">
