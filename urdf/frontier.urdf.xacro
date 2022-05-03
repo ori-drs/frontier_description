@@ -17,10 +17,12 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
+  <xacro:include filename="$(find hesai_description)/urdf/hesai.urdf.xacro" />
   <xacro:macro name="frontier_device" params="parent:=base
                                              *origin
                                              simulation:=false
                                              ground_camera:=false
+                                             hesai:=true
                                              ouster_vertical_angle:=45
                                              ouster_beams:=64
                                              ouster_hz:=10
@@ -52,10 +54,20 @@
       <child link="frontier_mount" />
       <xacro:insert_block name="origin" />
     </joint>
-    <!-- add OS Ouster Lidar sensor -->
-    <xacro:os_device name="os1_sensor" parent="frontier_mount" simulation="${simulation}">
-      <origin xyz="0 0 77.258e-3" rpy="0 0 ${ouster_rotation}" />
-    </xacro:os_device>
+    <xacro:unless value="${hesai}">
+      <!-- add OS Ouster Lidar sensor -->
+      <xacro:os_device name="os1_sensor" parent="frontier_mount" simulation="${simulation}">
+        <origin xyz="0 0 77.258e-3" rpy="0 0 ${ouster_rotation}" />
+      </xacro:os_device>
+    </xacro:unless>
+    <!-- if it's a model with Hesai PandarXT -->
+
+    <xacro:if value="${hesai}">
+      <xacro:hesai_device name="pandar" parent="frontier_mount" simulation="${simulation}">
+        <origin xyz="0 0 77.7e-3" rpy="0 0 0" />
+      </xacro:hesai_device>
+    </xacro:if>
+      
     <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
     <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -134,4 +146,3 @@
   </xacro:macro>
 
 </robot>
-
