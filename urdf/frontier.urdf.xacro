@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Copyright 2020 University of Oxford
+<!-- Copyright 2020-2022 University of Oxford
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -64,7 +64,8 @@
 
     <xacro:if value="${hesai}">
       <xacro:hesai_device name="pandar" parent="frontier_mount" simulation="${simulation}">
-        <origin xyz="0 0 77.7e-3" rpy="0 0 0" />
+        <!-- 4 mm standoff present, not shown in model -->
+        <origin xyz="0 0 81.7e-3" rpy="0 0 0" />
       </xacro:hesai_device>
     </xacro:if>
       
@@ -78,6 +79,25 @@
       <parent link="frontier_mount" />
       <child link="realsense_parent" />
     </joint>
+
+
+    <link name="microstrain_imu">
+      <visual>
+        <origin xyz="4.849e-3 0.0 -2.363e-3" rpy="0.0 0.0 0.0"/>
+        <geometry>
+          <box size="32.898e-3 24.384e-3 11.125e-3"/>
+        </geometry>
+          <material name="microstrain_gray">
+            <color rgba="0.27 0.27 0.27 1.0"/>
+          </material>
+      </visual>
+    </link>
+    <joint name="frontier_mount_to_microstrain_imu" type="fixed">
+      <origin xyz="40.42e-3 -34.58733e-3 62.5e-3" rpy="0.0 0.0 ${-pi}"/>
+      <parent link="frontier_mount"/>
+      <child link="microstrain_imu"/>
+    </joint>
+
     <!-- the geometric center of the bottom screws is not
          perfectly coincident with the base frame
          (i.e., geometry center of device,
