@@ -83,11 +83,12 @@
     </joint>
 
 
+    <!-- add Microstrain IMU -->
     <link name="microstrain_imu">
       <visual>
         <origin xyz="4.849e-3 0.0 -2.363e-3" rpy="0.0 0.0 0.0"/>
         <geometry>
-          <box size="32.898e-3 24.384e-3 11.125e-3"/>
+          <mesh filename="package://frontier_description/urdf/meshes/3dm_gx4_25.dae"/>
         </geometry>
           <material name="microstrain_gray">
             <color rgba="0.27 0.27 0.27 1.0"/>
