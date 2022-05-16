@@ -18,14 +18,14 @@
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
   <xacro:include filename="$(find hesai_description)/urdf/hesai.urdf.xacro" />
+  
   <xacro:macro name="frontier_device" params="parent:=base
                                              *origin
                                              simulation:=false
-                                             ground_camera:=false
                                              hesai:=true
-                                             ouster_vertical_angle:=45
-                                             ouster_beams:=64
-                                             ouster_hz:=10
+                                             lidar_fov:=45
+                                             lidar_beams:=64
+                                             lidar_hz:=10
                                              ouster_rotation:=${-pi/4}">
     <!-- TODO make the xacro parametric against frontier version -->
     <link name="frontier_mount">
@@ -49,14 +49,16 @@
           </geometry>
         </collision>
     </link>
+    
     <joint name="${parent}_to_mount" type="fixed">
       <parent link="${parent}" />
       <child link="frontier_mount" />
       <xacro:insert_block name="origin" />
     </joint>
+    
     <xacro:unless value="${hesai}">
       <!-- add OS Ouster Lidar sensor -->
-      <xacro:os_device name="os1_sensor" parent="frontier_mount" simulation="${simulation}">
+      <xacro:os_device name="os_sensor" parent="frontier_mount" simulation="${simulation}">
         <origin xyz="0 0 77.258e-3" rpy="0 0 ${ouster_rotation}" />
       </xacro:os_device>
     </xacro:unless>
@@ -69,7 +71,7 @@
       </xacro:hesai_device>
     </xacro:if>
       
-    <!-- add RealSense D435i (the mesh is actually the non-IMU version -->
+    <!-- add RealSense D435i (the mesh is actually the non-IMU version) -->
     <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">
       <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:sensor_d435i>
@@ -92,6 +94,7 @@
           </material>
       </visual>
     </link>
+    
     <joint name="frontier_mount_to_microstrain_imu" type="fixed">
       <origin xyz="40.42e-3 -34.58733e-3 62.5e-3" rpy="0.0 0.0 ${-pi}"/>
       <parent link="frontier_mount"/>
@@ -101,47 +104,22 @@
     <!-- the geometric center of the bottom screws is not
          perfectly coincident with the base frame
          (i.e., geometry center of device,
-         coincident with ouster center) -->
+         coincident with lidar's rotation center) -->
     <link name="bottom_screws_center" />
     <joint name="frontier_mount_to_bottom_screws_center" type="fixed">
       <origin xyz="0 0.475e-3 0" rpy="0 0 0" />
       <parent link="frontier_mount" />
       <child link="bottom_screws_center" />
     </joint>
-    <xacro:if value="${ground_camera}">
-      <link name="ground_camera_shim">
-        <visual>
-          <geometry>
-            <mesh filename="package://frontier_description/urdf/meshes/frontier_40deg_shim.dae" />
-          </geometry>
-        </visual>
-        <inertial>
-        <!-- TODO Update inertia parameters -->
-        <origin xyz="9.513e-3 -2.85e-3 -12.423e-3" rpy="0 0 0" />
-        <mass value="0.01" />
-        <inertia ixx="10.931e-6" ixy="0.177e-6" ixz="-0.253e-6"
-                 iyy="1.199e-6" iyz="0.075e-6" izz="10.21e-6" />
-        </inertial>
-      </link>
-
-      <joint name="ground_camera_shim_joint" type="fixed">
-        <origin xyz="59.5e-3 0 38.7e-3" rpy="0 0 0" />
-        <parent link="frontier_mount" />
-        <child link="ground_camera_shim" />
-      </joint>
-      <xacro:sensor_d435i name="ground_camera" parent="ground_camera_shim" use_nominal_extrinsics="${simulation}">
-        <origin xyz="14.345e-3 7.5e-3 -25.212e-3" rpy="0 ${pi*40.0/180.0} 0" />
-      </xacro:sensor_d435i>
-    </xacro:if>
 
     <!-- Bring in simulation data for Gazebo. -->
     <xacro:if value="${simulation}">
       <!-- Simulated Ouster -->
       <xacro:include filename="$(find frontier_description)/urdf/gazebo/ouster.gazebo"/>
-      <xacro:ouster_gazebo name="ouster" min_vertical_angle="${ouster_vertical_angle}"
-                                         max_vertical_angle="${-ouster_vertical_angle}"
-                                         hz="${ouster_hz}"
-                                         lasers="${ouster_beams}">
+      <xacro:ouster_gazebo name="ouster" min_vertical_angle="${lidar_fov}"
+                                         max_vertical_angle="${-lidar_fov}"
+                                         hz="${lidar_hz}"
+                                         lasers="${lidar_beams}">
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:ouster_gazebo>
 
@@ -151,12 +129,7 @@
       <xacro:realsense_d435_gazebo name="camera">
         <origin xyz="0 0 0" rpy="0 0 0"/>
       </xacro:realsense_d435_gazebo>
-      <!-- Add ground camera -->
-      <xacro:if value="${ground_camera}">
-        <xacro:realsense_d435_gazebo name="ground_camera">
-          <origin xyz="0 0 0" rpy="0 0 0"/>
-        </xacro:realsense_d435_gazebo>
-      </xacro:if>
+
       <!-- Add ground truth -->
       <xacro:include filename="$(find frontier_description)/urdf/gazebo/ground_truth.gazebo"/>
       <xacro:ground_truth_gazebo parent="${parent}">
