@@ -18,7 +18,8 @@
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
   <xacro:include filename="$(find hesai_description)/urdf/hesai.urdf.xacro" />
-  
+  <xacro:include filename="$(find frontier_description)/urdf/microstrain.urdf.xacro" /> 
+
   <xacro:macro name="frontier_device" params="parent:=base
                                              *origin
                                              simulation:=false
@@ -30,7 +31,7 @@
     <!-- TODO make the xacro parametric against frontier version -->
     <link name="frontier_mount">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
         <geometry>
           <mesh filename="package://frontier_description/urdf/meshes/frontier_mount_v3.dae" />
         </geometry>
@@ -82,25 +83,13 @@
       <child link="realsense_parent" />
     </joint>
 
-
-    <!-- add Microstrain IMU -->
-    <link name="microstrain_imu">
-      <visual>
-        <origin xyz="4.849e-3 0.0 -2.363e-3" rpy="0.0 0.0 0.0"/>
-        <geometry>
-          <mesh filename="package://frontier_description/urdf/meshes/3dm_gx4_25.dae"/>
-        </geometry>
-          <material name="microstrain_gray">
-            <color rgba="0.27 0.27 0.27 1.0"/>
-          </material>
-      </visual>
-    </link>
-    
-    <joint name="frontier_mount_to_microstrain_imu" type="fixed">
-      <origin xyz="40.42e-3 -34.58733e-3 62.5e-3" rpy="0.0 0.0 ${-pi}"/>
-      <parent link="frontier_mount"/>
-      <child link="microstrain_imu"/>
-    </joint>
+    <!-- Add the Microstrain 3DM-GX4-45 for now -->
+    <!-- TODO make the xacro parametric against the IMU model -->
+    <xacro:microstrain_gx4_45 parent="frontier_mount" simulation="${simulation}">
+      <!-- the origin is the same for both versions because it's in the -->
+      <!-- middle of the screw holes at the bottom -->
+      <origin xyz="34.047e-3 -34.58733e-3 65.7e-3" rpy="${pi} 0.0 0.0"/>
+    </xacro:microstrain_gx4_45>
 
     <!-- the geometric center of the bottom screws is not
          perfectly coincident with the base frame

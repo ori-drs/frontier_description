@@ -6,11 +6,13 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /RobotModel1
         - /TF1
         - /TF1/Frames1
         - /Frontier Base1
         - /RealSense Parent Frame1
         - /RealSense Infra1 Optical Frame1
+        - /Microstrain IMU1
       Splitter Ratio: 0.48801368474960327
     Tree Height: 750
   - Class: rviz/Selection
@@ -57,7 +59,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Alpha: 1
+    - Alpha: 0.8999999761581421
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
@@ -146,6 +148,10 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+        microstrain_mount:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
           Value: true
         pandar:
           Alpha: 1
@@ -200,6 +206,14 @@ Visualization Manager:
       Radius: 0.0010000000474974513
       Reference Frame: camera_infra1_optical_frame
       Value: true
+    - Alpha: 1
+      Class: rviz/Axes
+      Enabled: true
+      Length: 0.10000000149011612
+      Name: Microstrain IMU
+      Radius: 0.0010000000474974513
+      Reference Frame: microstrain_imu
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -228,7 +242,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.30472785234451294
+      Distance: 0.38175928592681885
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -236,17 +250,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.04104161262512207
-        Y: 0.01215407531708479
-        Z: 0.015007096342742443
+        X: -0.04958898201584816
+        Y: -0.032226454466581345
+        Z: -0.007666421122848988
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3597968518733978
+      Pitch: 0.5147974491119385
       Target Frame: <Fixed Frame>
-      Yaw: 1.1853951215744019
+      Yaw: 0.605397641658783
     Saved: ~
 Window Geometry:
   Displays:
