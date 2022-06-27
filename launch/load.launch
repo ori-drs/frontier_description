@@ -6,10 +6,9 @@
   <arg name="ground_camera"         default="false" />
   <arg name="robot_state_publisher" default="false" />
   <!-- Sometimes the ouster may have a different rotation to the default-->
-  <arg name="ouster_rotation"       default="0"/>
 
   <!-- Load robot description -->
-  <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation) ground_camera:=$(arg ground_camera) ouster_rotation:=$(arg ouster_rotation)" />
+  <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation) ground_camera:=$(arg ground_camera)" />
 
   <!-- Launch robot_state_publisher if required -->
   <node if="$(arg robot_state_publisher)" name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
