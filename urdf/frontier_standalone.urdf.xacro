@@ -17,10 +17,24 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find frontier_description)/urdf/frontier.urdf.xacro" />
   <xacro:arg name="simulation" default="false" />
-  <!-- Need to put the arithmetic computation into quotes because args must be strings -->
-  <xacro:arg name="ouster_rotation" default="'${-pi/4}'" />
+    
+  <!-- If true, use Ouster OS1-64. If false, use HESAI XT32 -->
+  <xacro:arg name="use_ouster" default="false" />
+  <!-- If true, use RealSense d435i. Otherwise, use Alphasense Core -->
+  <xacro:arg name="use_realsense" default="false" />
+  <!-- If true, rotate the Ouster by 45 deg. Otherwise keep zero. 
+       If use_ouster is false, the argument is ignored -->
+  <xacro:arg name="rotate_ouster" default="false" />
+  <!-- If true, raise the lidar by 4mm.  
+       If use_realsense is false, the argument is ignored -->
+  <xacro:arg name="raise_lidar" default="false" />
+  
   <link name="base"/>
-  <xacro:frontier_device parent="base" simulation="$(arg simulation)" ouster_rotation="$(arg ouster_rotation)">
+  <xacro:frontier_device parent="base" simulation="$(arg simulation)" 
+                         use_ouster="$(arg use_ouster)" 
+                         use_realsense="$(arg use_realsense)" 
+                         rotate_ouster="$(arg rotate_ouster)"
+                         raise_lidar="$(arg raise_lidar)">
     <!-- this transform makes the robot base coincident with the front camera link -->
     <origin xyz="-0.08425 -0.025 -0.06325" rpy="0 0 0" />
   </xacro:frontier_device>
