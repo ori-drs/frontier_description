@@ -3,6 +3,9 @@ project(frontier_description)
 
 find_package(catkin REQUIRED COMPONENTS
   realsense2_description  # To throw a failure if the realsense2_description is not installed
+  alphasense_description
+  ouster_description
+  hesai_description
   xacro
 )
 
