@@ -4,9 +4,10 @@ project(frontier_description)
 find_package(catkin REQUIRED COMPONENTS
   realsense2_description  # To throw a failure if the realsense2_description is not installed
   xacro
+  ouster_description
 )
 
-catkin_package(CATKIN_DEPENDS xacro)
+catkin_package(CATKIN_DEPENDS xacro ouster_description)
 
 set(xacro_files
   ${CMAKE_CURRENT_SOURCE_DIR}/urdf/frontier_standalone.urdf.xacro
