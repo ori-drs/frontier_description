@@ -12,29 +12,40 @@ It was previously known as **Ro**o**ster** (**R**ealsense + **O**u**ster**) unti
  - `frontier.urdf.xacro`: macro definition of the Frontier device, which you can instantiate on any robot
  - `frontier_standalone.urdf.xacro`: Frontier as a standalone robot. The root link is called `base` and its origin
    is coincident with the `camera_link` frame (see below)
- - `ouster.urdf.xacro`: macro definition of the Ouster OS-1 LIDAR sensor
+ - `microstrain.urdf.xacro`: macro definition of the Microstrain 3DM-GX4-45 and 3DM-GX4-25 inertial measurement units
 
 ## Frontier Macro Parameters
  - `simulation`: if true, it generates all the links for optical frames that are normally advertized by the sensor drivers
  - `parent`: name of the root link of the device (default is: `base`)
  - `origin`: xacro block that connects `parent` to `frontier_mount`
- - `ground_camera`: if true, it adds the ground facing camera and the relative shim to support it
+ - `use_ouster`: load the ouster OS lidar instead of the Hesai Pandar
+ - `rotate_ouster`: rotate the ouster lidar by 45 degrees (ignored if `use_ouster` is `false`)
+ - `raise_lidar`: raises the ouster lidar by 4 mm (some models have standoff, soon to be deprecated)
+ - `use_realsense`: load the RealSense D435i instead of the Alphasense Dev Kit
 
 ## Standalone Frontier Xacro Arguments:
- - `simulation` : same as the macro parameter
- - `ground_camera`: same as the macro parameter
+The following arguments are ported from the macro to the standalone macro:
+ - `simulation`
+ - `use_ouster`
+ - `rotate_ouster`
+ - `use_realsense`
+ - `raise_lidar`
 
 ## Standalone  Frontier URDF Frames:
  - `base` : coincident with the left camera optical frame with x-forward, y-left, z-up convention. The ground truth is expressed in this frame.
  - `frontier_mount`: located at the bottom of the Frontier, with z-axis coincident with the ouster sensor frame.
  - `realsense_parent` : the frame located at the bottom screw hole plate of the RealSense D435i is located here
- - `os1_sensor` : conventional base link for the Ouster. 
-                  It is at the bottom of the sensor and the top of the Frontier, 45 deg clockwise rotate on z-axis due to cabling.
- - `os1_lidar` : is looking backward and is in the middle of the sensor (as per official documentation)
- - `os1_imu` : has fixed offset from `os1_sensor` retrived from documentation or via interactive probing to the device.
+ - `os_sensor` : conventional base link for the Ouster. 
+                  It is at the bottom of the sensor and the top of the Frontier, 0 deg (or 45 deg clockwise rotated on z-axis if `rotate_ouster = true`).
+ - `os_lidar` : is looking backward and is in the middle of the sensor. Not used anymore, pointcluds from the ouster are expressed in `os_sensor` since firmeware 2.0
+ - `os_imu` : has fixed offset from `os_sensor` retrived from documentation or via interactive probing to the device.
  - `bottom_screws_center`: Convenience frame used for mounting on other robots only.
-                           It is at the intersection between the lines connecting the bottom screw holes (not visible on URDF). 
- - `ground_camera_shim`: concentric with top screw of the 40 deg down shim, on the surface of the NUC cover
+                           It is at the intersection between the lines connecting the bottom screw holes (not visible on URDF).
+ - `alphasense_mount`: frame at the bottom of the alphasense, in the middle of the mounting screws
+ - `alphasense_imu`: IMU located inside the Alphasense Dev Core Kit
+ - `hesai_base`: located at the bottom of the hesai, concentric with the axis of rotation and with `x`-axis pointing forward
+ - `pandar`: sensor origin, with `x`-axis pointing left
+ - `cam_front_left`,`cam_front_right`,`cam_side_left`,`cam_side_right`: optical centers of the Alphasense's cameras
                            
 
 ## Example
