@@ -4,8 +4,8 @@ handheld device designed to perform visual-inertial and LIDAR navigation algorit
 It was previously known as **Ro**o**ster** (**R**ealsense + **O**u**ster**) until 2022.
 
 ## Dependencies:
- - [realsense2_description](https://github.com/IntelRealSense/realsense-ros/tree/development/realsense2_description) available from the  [Intel's repo](https://github.com/IntelRealSense/realsense-ros) or APT (`ros-melodic-realsense2-description`) 
- - [ddynamic_reconfigure](https://github.com/pal-robotics/ddynamic_reconfigure) this is a dependency of the `realsense2_camera` that should be available through APT (`ros-melodic-ddynamic-reconfigure`).
+ - [realsense2_description](https://github.com/IntelRealSense/realsense-ros/tree/development/realsense2_description) available from the  [Intel's repo](https://github.com/IntelRealSense/realsense-ros) or APT (`ros-noetic-realsense2-description`) 
+ - [ddynamic_reconfigure](https://github.com/pal-robotics/ddynamic_reconfigure) this is a dependency of the `realsense2_camera` that should be available through APT (`ros-noetic-ddynamic-reconfigure`).
  - [ouster_description](https://github.com/ori-drs/ouster_example/tree/create-ouster-description/ouster_description) available at the DRS fork of the [ouster_example](https://github.com/ori-drs/ouster_example) repository
 
 ## Files
