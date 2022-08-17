@@ -11,6 +11,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>realsense2_description</depend>
+  <depend>hesai_description</depend>
   <depend>ouster_description</depend>
+  <depend>alphasense_description</depend>
   <depend>xacro</depend>
 </package>

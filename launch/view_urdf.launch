@@ -1,10 +1,19 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="rviz" default="true" />
-  <arg name="simulation" default="true" />
+  <arg name="rviz"             default="true" />
+  <arg name="simulation"       default="true" />
+  <arg name="use_ouster"       default="false"/>
+  <arg name="use_realsense"    default="false"/>
+  <arg name="rotate_ouster"    default="false"/>
+  <arg name="raise_lidar"      default="false"/>
+
 
   <include file="$(find frontier_description)/launch/load.launch">
-    <arg name="simulation" value="$(arg simulation)" />
+    <arg name="simulation"       value="$(arg simulation)" />
+    <arg name="use_ouster"       value="$(arg use_ouster)"/>
+    <arg name="use_realsense"    value="$(arg use_realsense)"/>
+    <arg name="rotate_ouster"    value="$(arg rotate_ouster)"/>
+    <arg name="raise_lidar"      value="$(arg raise_lidar)"/>
   </include>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />

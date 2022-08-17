@@ -3,13 +3,17 @@
 <launch>
   <arg name="simulation"            default="false" />
   <arg name="model"                 default="$(find frontier_description)/urdf/frontier_standalone.urdf.xacro" />
-  <arg name="ground_camera"         default="false" />
   <arg name="robot_state_publisher" default="false" />
-  <!-- Sometimes the ouster may have a different rotation to the default-->
-  <arg name="ouster_rotation"       default="0"/>
+
+  <arg name="use_ouster"            default="false"/>
+  <arg name="use_realsense"         default="false"/>
+  <!-- Sometimes the ouster may have a different rotation to the default -->
+  <arg name="rotate_ouster"         default="false"/>
+  <!-- Sometimes the lidar is raised by 4mm using standoffs -->
+  <arg name="raise_lidar"           default="false"/>
 
   <!-- Load robot description -->
-  <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation) ground_camera:=$(arg ground_camera) ouster_rotation:=$(arg ouster_rotation)" />
+  <param name="robot_description" command="xacro $(arg model) simulation:=$(arg simulation) use_ouster:=$(arg use_ouster) use_realsense:=$(arg use_realsense) rotate_ouster:=$(arg rotate_ouster) raise_lidar:=$(arg raise_lidar)" />
 
   <!-- Launch robot_state_publisher if required -->
   <node if="$(arg robot_state_publisher)" name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />

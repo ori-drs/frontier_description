@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+
+<!-- Copyright 2022 University of Oxford
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+
+<!-- Macros for the Microstrain 3DM-GX4-25 and 3DM-GX4-45 sensors -->
+<robot name="microstrain" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:arg name="simulation" default="false" />
+
+<xacro:macro name="microstrain_gx4_25" params="parent *origin name:=microstrain_imu simulation:=false">
+  <joint name="${parent}_to_microstrain_mount" type="fixed">
+    <xacro:insert_block name="origin"/>
+    <parent link="${parent}" />
+    <child link="microstrain_mount" />
+  </joint>
+
+  <link name="microstrain_imu"/>
+
+  <link name="microstrain_mount">
+    <visual>
+      <geometry>
+        <mesh filename="package://frontier_description/urdf/meshes/3dm_gx4_25.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- Taken from CAD assuming constant density -->
+      <origin xyz="1.157e-3 -0.006e-3 5.413e-3" rpy="0 0 0" />
+      <mass value="0.0165" />
+      <inertia ixx="1.063e-6" ixy="0.001e-6" ixz="-0.006e-6"
+               iyy="1.672e-6" iyz="-4.191e-10" izz="2.394e-6" />
+    </inertial>
+  </link>
+
+  <joint name="microstrain_mount_to_imu" type="fixed">
+    <origin xyz="6.375e-3 0.0 4.5e-3" rpy="0.0 ${-pi} 0.0"/>
+    <parent link="microstrain_mount"/>
+    <child link="microstrain_imu"/>
+  </joint>
+
+  <!-- TODO implement gazebo plugin loading if simulation is true -->
+</xacro:macro>
+
+<xacro:macro name="microstrain_gx4_45" params="parent *origin name:=microstrain_imu simulation:=false">
+
+  <joint name="${parent}_to_microstrain_mount" type="fixed">
+    <xacro:insert_block name="origin"/>
+    <parent link="${parent}" />
+    <child link="microstrain_mount" />
+  </joint>
+
+  <link name="microstrain_imu"/>
+
+  <link name="microstrain_mount">
+    <visual>
+      <geometry>
+        <mesh filename="package://frontier_description/urdf/meshes/3dm_gx4_45.dae"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <!-- Taken from CAD assuming constant density -->
+      <origin xyz="1.19e-3 -0.005e-3 5.469e-3" rpy="0 0 0" />
+      <mass value="0.02" />
+      <inertia ixx="1.274e-6" ixy="2.813e-10" ixz="-0.006e-6"
+               iyy="3.033e-6" iyz="-4.166e-10" izz="3.889e-6" />
+    </inertial>
+  </link>
+
+  <joint name="microstrain_mount_to_imu" type="fixed">
+    <origin xyz="2.25e-3 0.0 4.4e-3" rpy="0.0 ${-pi} 0.0"/>
+    <parent link="microstrain_mount"/>
+    <child link="microstrain_imu"/>
+  </joint>
+
+  <!-- TODO implement gazebo plugin loading if simulation is true -->
+</xacro:macro>
+
+</robot>
