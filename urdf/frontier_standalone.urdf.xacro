@@ -35,8 +35,10 @@
                          use_realsense="$(arg use_realsense)" 
                          rotate_ouster="$(arg rotate_ouster)"
                          raise_lidar="$(arg raise_lidar)">
-    <!-- this transform makes the robot base coincident with the front camera link -->
-    <origin xyz="-0.08425 -0.025 -0.06325" rpy="0 0 0" />
+    <!-- this transform makes the robot base coincident with the Realsense front camera link -->
+    <!-- <origin xyz="-0.08425 -0.025 -0.06325" rpy="0 0 0" />-->
+    <!-- thus transform makes the robot base coincident with the bottom of the frontier case -->
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
   </xacro:frontier_device>
 </robot>
 
