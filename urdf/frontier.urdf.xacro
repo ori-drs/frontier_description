@@ -18,7 +18,7 @@
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
   <xacro:include filename="$(find hesai_description)/urdf/hesai.urdf.xacro" />
-  <xacro:include filename="$(find frontier_description)/urdf/microstrain.urdf.xacro" /> 
+  <xacro:include filename="$(find frontier_description)/urdf/microstrain.urdf.xacro" />
   <xacro:include filename="$(find alphasense_description)/urdf/alphasense.urdf.xacro" />
 
   <xacro:macro name="frontier_device" params="parent:=base
@@ -34,11 +34,11 @@
     <xacro:if value="${use_realsense}">
       <xacro:if value="${raise_lidar}">
         <!-- 4 mm standoff present, not shown in model -->
-        <xacro:property name="lidar_z" value="81.7e-3"/>
+        <xacro:property name="lidar_z" value="77e-3"/>
       </xacro:if>
 
       <xacro:unless value="${raise_lidar}">
-        <xacro:property name="lidar_z" value="77.7e-3"/>
+        <xacro:property name="lidar_z" value="73e-3"/>
       </xacro:unless>
     </xacro:if>
 
@@ -48,7 +48,7 @@
     </xacro:unless>
 
     <!-- Assuming we are using Ouster OS1-64 -->
-    <xacro:if value="${use_ouster}">   
+    <xacro:if value="${use_ouster}">
       <xacro:property name="lidar_fov" value="45" />
       <xacro:property name="lidar_beams" value="64"/>
     </xacro:if>
@@ -91,7 +91,7 @@
           </collision>
       </link>
     </xacro:if>
-    
+
     <!-- Assuming we are using Alphasense Core Dev Kit -->
     <xacro:unless value="${use_realsense}">
       <link name="frontier_mount">
@@ -103,13 +103,13 @@
         <!-- TODO add inertia params -->
       </link>
     </xacro:unless>
-    
+
     <joint name="${parent}_to_mount" type="fixed">
       <parent link="${parent}" />
       <child link="frontier_mount" />
       <xacro:insert_block name="origin" />
     </joint>
-    
+
     <!-- Assuming we are using Ouster OS1-64 -->
     <xacro:if value="${use_ouster}">
       <!-- add OS Ouster Lidar sensor -->
@@ -117,7 +117,7 @@
         <origin xyz="0 0 ${lidar_z}" rpy="0 0 ${ouster_rotation}" />
       </xacro:os_device>
     </xacro:if>
-    
+
     <!-- assuming we are using Hesai XT32 -->
     <xacro:unless value="${use_ouster}">
       <xacro:hesai_device name="pandar" parent="frontier_mount" simulation="${simulation}">
@@ -135,29 +135,29 @@
         </xacro:microstrain_gx4_45>
       </xacro:if>
     </xacro:unless>
-      
+
     <!-- Assuming we are using RealSense D435i -->
     <xacro:if value="${use_realsense}">
       <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:sensor_d435i>
-      
+
       <link name="realsense_parent" />
-      
+
       <joint name="base_to_realsense" type="fixed">
         <origin xyz="73.65e-3 7.5e-3 50.75e-3" rpy="0 0 0" />
         <parent link="frontier_mount" />
         <child link="realsense_parent" />
       </joint>
     </xacro:if>
-    
+
     <!-- Assuming we are using Alphasense Core Dev Kit -->
     <xacro:unless value="${use_realsense}">
         <xacro:alphasense parent="frontier_mount" four_cams="true">
           <origin xyz="32e-3 0.0 47.7e-3" rpy="0 0 0" />
         </xacro:alphasense>
     </xacro:unless>
-    
+
 
     <!-- the geometric center of the bottom screws is not
          perfectly coincident with the base frame
