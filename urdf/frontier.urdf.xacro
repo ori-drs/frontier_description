@@ -113,7 +113,7 @@
     <!-- Assuming we are using Ouster OS1-64 -->
     <xacro:if value="${use_ouster}">
       <!-- add OS Ouster Lidar sensor -->
-      <xacro:os_device name="os_sensor" parent="frontier_mount" simulation="${simulation}">
+      <xacro:os_device name="os_sensor" parent="frontier_mount" simulation="true">
         <origin xyz="0 0 ${lidar_z}" rpy="0 0 ${ouster_rotation}" />
       </xacro:os_device>
     </xacro:if>
@@ -138,7 +138,7 @@
 
     <!-- Assuming we are using RealSense D435i -->
     <xacro:if value="${use_realsense}">
-      <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="${simulation}">
+      <xacro:sensor_d435i name="camera" parent="realsense_parent" use_nominal_extrinsics="true">
         <origin xyz="0 0 0" rpy="0 0 0" />
       </xacro:sensor_d435i>
 
