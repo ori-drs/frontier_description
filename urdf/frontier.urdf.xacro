@@ -17,7 +17,7 @@
   <!-- include the RealSense d435 from official Intel's repository -->
   <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
   <xacro:include filename="$(find ouster_description)/urdf/ouster.urdf.xacro" />
-  <xacro:include filename="$(find hesai_description)/urdf/hesai.urdf.xacro" />
+
   <xacro:include filename="$(find frontier_description)/urdf/microstrain.urdf.xacro" /> 
   <xacro:include filename="$(find alphasense_description)/urdf/alphasense.urdf.xacro" />
 
@@ -120,9 +120,10 @@
     
     <!-- assuming we are using Hesai XT32 -->
     <xacro:unless value="${use_ouster}">
-      <xacro:hesai_device name="pandar" parent="frontier_mount" simulation="${simulation}">
-          <origin xyz="0 0 ${lidar_z}" rpy="0 0 0" />
-      </xacro:hesai_device>
+      <xacro:include filename="$(find hesai_description)/urdf/hesai_xt32.urdf.xacro" />
+      <xacro:hesai_xt32_device name="pandar" parent="frontier_mount" simulation="${simulation}">
+        <origin xyz="0 0 ${lidar_z}" rpy="0 0 0" />
+      </xacro:hesai_xt32_device>
 
       <!-- Only add the Microstrain if the Hesai XT32 and the RealSense are used -->
       <xacro:if value="${use_realsense}">
